@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+
+namespace SuperMarket
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Market market = new Market();
+            Buyer buyer;
+            int queueLenght;
+            
+            Console.WriteLine("Добро пожаловать в наш супермаркет. Введите длинну очереди: ");
+            queueLenght = Convert.ToInt32(Console.ReadLine());
+            market.AddBuyers(queueLenght);
+            
+            while (market.BuyersCount > 0)
+            {
+                bool buyerToPay = false;
+                market.SelectCurentBuyer();
+                buyer = market.CurrentBuyer;
+                buyer.ShowProduct();
+                
+                while (!buyerToPay)
+                {
+                    buyerToPay = buyer.CheckSolvency();
+                    
+                    if (buyerToPay)
+                    {
+                        market.CalculateBuyer(buyer.ToPay());
+                        Console.WriteLine("Следующий покупатель");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    
+                    else
+                    {
+                        buyer.DeleteProductInCart();
+                    }
+                }
+            }
+            
+            Console.WriteLine("Наш магазин закрывается, вы расчитали всех покупателей.");
+            Console.ReadKey();
+        }
+    }
