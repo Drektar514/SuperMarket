@@ -1,0 +1,55 @@
+using System;
+
+namespace SuperMarket
+{
+    class Buyer
+    {
+        private Cart _cart;
+        private int _moneyToPay;
+        private int _money;
+
+        public Buyer(int money)
+        {
+            _money = money;
+            _cart = new Cart();
+        }
+
+        public void TakeProductInCart()
+        {
+            _cart.AddProduct();
+        }
+
+        public void DeleteProductInCart()
+        {
+            _cart.DeleteProduct();
+        }
+
+        public bool CheckSolvency()
+        {
+            _moneyToPay = _cart.SumProduct;
+
+            if (_money >= _moneyToPay)
+            {
+                return true;
+            }
+
+            else
+            {
+                _moneyToPay = 0;
+                return false;
+            }
+        }
+
+        public int ToPay()
+        {
+            _money -= _moneyToPay;
+            return _moneyToPay;
+        }
+
+        public void ShowProduct()
+        {
+            _cart.ShowListProduct();
+            Console.WriteLine($"В тележке продуктов на сумму {_cart.SumProduct} рублей.");
+        }
+    }
+}
