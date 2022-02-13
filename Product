@@ -1,0 +1,23 @@
+using System;
+
+namespace SuperMarket
+{
+    class Product
+    {
+        private string[] _names = { "Колбаса", "Сыр", "Хлеб", "Молоко", "Печенье", "Мыло", "Шампунь", "Пельмени", "Шоколад", "Сок", "Бананы" };
+
+        public string Name { get; private set; }
+        public int Price { get; private set; }
+
+        public Product(int randomIndex, int price)
+        {
+            Name = _names[randomIndex];
+            Price = price;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"{Name} - {Price}");
+        }
+    }
+}
