@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+
+namespace SuperMarket
+{
+    class Cart
+    {
+        private Product _product;
+        private List<Product> _products;
+        private Random _random;
+
+        public int SumProduct { get; private set; }
+
+        public Cart()
+        {
+            _products = new List<Product>();
+            _random = new Random();
+        }
+
+        public void AddProduct()
+        {
+            int countProduct = _random.Next(1, 15);
+
+            for (int i = 0; i < countProduct; i++)
+            {
+                int randomProduct = _random.Next(1, 11);
+                int randomPrice = _random.Next(10, 500);
+
+                _product = new Product(randomProduct, randomPrice);
+                _products.Add(_product);
+                SumProduct += _products[i].Price;
+            }
+        }
+
+        public void DeleteProduct()
+        {
+            int deleteIndex = _random.Next(0, _products.Count);
+
+            _product = _products[deleteIndex];
+            SumProduct -= _product.Price;
+
+            Console.Write("Из вашей тележки убрано: ");
+
+            _product.ShowInfo();
+            _products.RemoveAt(deleteIndex);
+
+        }
+        public void ShowListProduct()
+        {
+            foreach (var product in _products)
+            {
+                product.ShowInfo();
+            }
+        }
+    }
+}
